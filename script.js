@@ -6,13 +6,29 @@ let song = new Audio('Songs/1.mp3');
 
 let singer = [
     {
+        id: 0,
+        songName: `<p>Tu aake Dekhle <br> King</p>`,
+    },
+    {
         id: 1,
-        songName: `<p>Glory <br> Honey Singh</p>`,
+        songName: `<p>Heeriye <br> Arijit Singh</p>`,
     },
     {
         id: 2,
-        songName: `<p>Royalty <br> Maestro Chives, Egzod, Neoni</p>`,
-    }
+        songName: `<p>Agar Tum Sath Ho <br> Arijit Singh,Alpa Yagnik </p>`,
+    },
+    {
+        id: 3,
+        songName: `<p>Chhogada Tara <br> Asees Kaur, Darshan Raval </p>`,
+    },
+    {
+        id: 4,
+        songName: `<p>Tum Se <br> Sachin-Jigar, Raghav Chaitanya, Varun Jain </p>`,
+    },
+    {
+        id: 5,
+        songName: `<p>Ve Haniyan <br> Danny, Avvy Sra </p>`,
+    },
 ];
 
 function playSong() {
@@ -35,6 +51,8 @@ function displaySongTiming() {
 
     let min1 = Math.floor(curTime / 60);
     let sec1 = Math.floor(curTime % 60);
+    let min2 = Math.floor(songDuration / 60);
+    let sec2 = Math.floor(songDuration % 60);
 
     if (min1 < 10) {
         min1 = `0${min1}`;
@@ -44,8 +62,14 @@ function displaySongTiming() {
         sec1 = `0${sec1}`;
     }
 
-    let min2 = Math.floor(songDuration / 60);
-    let sec2 = Math.floor(songDuration % 60);
+    if (min2 < 10) {
+        min2 = `0${min2}`;
+    }
+
+    if (sec2 < 10) {
+        sec2 = `0${sec2}`;
+    }
+
 
     songtime.innerHTML = `${min1}:${sec1}/${min2}:${sec2}`;
 
@@ -69,7 +93,7 @@ let allSongs = document.querySelectorAll('.allSongs');
 let playBtn = document.getElementsByClassName('play-btn');
 let playListIcon = document.getElementsByClassName('playListIcon');
 
-songIndex = Array.from(allSongs).length;
+songIndex = (Array.from(allSongs).length) - 1;
 let index = 0;
 let allSongsIndex = Array.from(playListIcon);
 
@@ -109,7 +133,7 @@ allSongsIndex.forEach((arr) => {
 function toNextSong() {
     index++;
     if (index > songIndex) {
-        index = 1;
+        index = 0;
     }
     song.src = `Songs/${index}.mp3`;
     song.play();
@@ -125,23 +149,23 @@ function toNextSong() {
         songinfo.innerHTML = songName;
     });
 
-    if (index === 2) {
-        allSongsIndex[index - 2].classList.remove('ri-pause-circle-line');
-        allSongsIndex[index - 2].classList.add('ri-play-circle-line');
-        allSongsIndex[index - 1].classList.remove('ri-play-circle-line');
-        allSongsIndex[index - 1].classList.add('ri-pause-circle-line');
-    } 
-    else if (index === 1) {
-        allSongsIndex[index - 1].classList.add('ri-pause-circle-line');
-        allSongsIndex[index - 1].classList.remove('ri-play-circle-line');
-        allSongsIndex[index].classList.add('ri-play-circle-line');
-        allSongsIndex[index].classList.remove('ri-pause-circle-line');
+    if (index === 0) {
+        allSongsIndex[index].classList.add('ri-pause-circle-line');
+        allSongsIndex[index].classList.remove('ri-play-circle-line');
+        allSongsIndex[songIndex].classList.add('ri-play-circle-line');
+        allSongsIndex[songIndex].classList.remove('ri-pause-circle-line');
+    }
+    else {
+        allSongsIndex[index - 1].classList.remove('ri-pause-circle-line');
+        allSongsIndex[index - 1].classList.add('ri-play-circle-line');
+        allSongsIndex[index].classList.remove('ri-play-circle-line');
+        allSongsIndex[index].classList.add('ri-pause-circle-line');
     }
 }
 
 function toPreviousSong() {
     index -= 1;
-    if (index < 1) {
+    if (index < 0) {
         index = songIndex;
     }
     song.src = `Songs/${index}.mp3`;
@@ -158,17 +182,17 @@ function toPreviousSong() {
         songinfo.innerHTML = songName;
     });
 
-    if (index === 2) {
-        allSongsIndex[index - 2].classList.remove('ri-pause-circle-line');
-        allSongsIndex[index - 2].classList.add('ri-play-circle-line');
-        allSongsIndex[index - 1].classList.remove('ri-play-circle-line');
-        allSongsIndex[index - 1].classList.add('ri-pause-circle-line');
+    if (index === songIndex) {
+        allSongsIndex[0].classList.remove('ri-pause-circle-line');
+        allSongsIndex[0].classList.add('ri-play-circle-line');
+        allSongsIndex[songIndex].classList.remove('ri-play-circle-line');
+        allSongsIndex[songIndex].classList.add('ri-pause-circle-line');
     }
-    else if (index === 1) {
-        allSongsIndex[index - 1].classList.add('ri-pause-circle-line');
-        allSongsIndex[index - 1].classList.remove('ri-play-circle-line');
-        allSongsIndex[index].classList.add('ri-play-circle-line');
-        allSongsIndex[index].classList.remove('ri-pause-circle-line');
+    else {
+        allSongsIndex[index].classList.add('ri-pause-circle-line');
+        allSongsIndex[index].classList.remove('ri-play-circle-line');
+        allSongsIndex[index + 1].classList.add('ri-play-circle-line');
+        allSongsIndex[index + 1].classList.remove('ri-pause-circle-line');
     }
 }
 
