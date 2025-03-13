@@ -97,13 +97,6 @@ songIndex = (Array.from(allSongs).length) - 1;
 let index = 0;
 let allSongsIndex = Array.from(playListIcon);
 
-function makeAllPlay() {
-    allSongsIndex.forEach((arr) => {
-        arr.classList.add('ri-play-circle-line');
-        arr.classList.remove('ri-pause-circle-line');
-    });
-}
-
 let songinfo = document.querySelector('.songinfo');
 
 allSongsIndex.forEach((arr) => {
@@ -122,8 +115,6 @@ allSongsIndex.forEach((arr) => {
             let { songName } = e;
             songinfo.innerHTML = songName;
         });
-
-        makeAllPlay();
 
         e.target.classList.remove('ri-play-circle-line');
         e.target.classList.add('ri-pause-circle-line');
