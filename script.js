@@ -199,6 +199,17 @@ function toPreviousSong() {
 next.addEventListener('click', toNextSong);
 previous.addEventListener('click', toPreviousSong);
 
+let menuicon = document.querySelector('.menu-icon');
+let closebtn = document.querySelector('.close');
+
+menuicon.addEventListener('click', () => {
+    document.querySelector('.left').style.left = '0';
+});
+
+closebtn.addEventListener('click', () => {
+    document.querySelector('.left').style.left = '-130%'
+})
+
 document.querySelector('.range').getElementsByTagName('input')[0].addEventListener('change', (e) => {
     song.volume = parseInt(e.target.value) / 100;
 });
