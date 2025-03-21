@@ -159,11 +159,15 @@ function showTime() {
 
     let currTime = music.currentTime;
     let duration = music.duration;
-
+    
     let min1 = Math.floor(currTime / 60);
     let sec1 = Math.floor(currTime % 60);
     let min2 = Math.floor(duration / 60);
     let sec2 = Math.floor(duration % 60);
+    
+    if(isNaN(min2 && sec2)) {
+        min2 = sec2 = '0';
+    }
 
     min1 < 10 ? min1 = `0${min1}` : min1;
     min2 < 10 ? min2 = `0${min2}` : min2;
@@ -178,7 +182,7 @@ function showTime() {
 }
 
 async function playAll() {
-    
+
     await displayAlbums();
 
     music.addEventListener('timeupdate', showTime);
