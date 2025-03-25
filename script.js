@@ -159,13 +159,13 @@ function showTime() {
 
     let currTime = music.currentTime;
     let duration = music.duration;
-    
+
     let min1 = Math.floor(currTime / 60);
     let sec1 = Math.floor(currTime % 60);
     let min2 = Math.floor(duration / 60);
     let sec2 = Math.floor(duration % 60);
-    
-    if(isNaN(min2 && sec2)) {
+
+    if (isNaN(min2 && sec2)) {
         min2 = sec2 = '0';
     }
 
@@ -181,6 +181,35 @@ function showTime() {
     circle.style.left = (music.currentTime / music.duration) * 100 + '%';
 }
 
+function playKeyEvents() {
+    document.addEventListener('keydown', (e) => {
+        let sound = document.querySelector('.range').getElementsByTagName('input')[0];
+        let left = document.querySelector('.left');
+
+        if (e.key === 's') {
+            toNextSong();
+        }
+        else if (e.key === 'Escape') {
+            left.style.left = '0';
+        }
+        else if (e.key === 'Backspace') {
+            left.style.left = '-140%';
+        }
+        else if (e.key === 'a') {
+            toPreviousSong();
+        }
+        else if (e.key === 'ArrowUp') {
+            music.currentTime = music.currentTime + 5;
+        }
+        else if (e.key === 'ArrowDown') {
+            music.currentTime = music.currentTime - 5;
+        }
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            sound.focus();
+        }
+    });
+}
+
 async function playAll() {
 
     await displayAlbums();
@@ -194,6 +223,8 @@ async function playAll() {
     play.addEventListener('click', toPlayAndPauseSong);
 
     let seekbar = document.querySelector('.seekbar');
+
+    playKeyEvents();
 
     seekbar.addEventListener('click', (e) => {
         let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
@@ -219,4 +250,4 @@ async function playAll() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', playAll);
+document.addEventListener('DOMContentLoaded', playAll); 
