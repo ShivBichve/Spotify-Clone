@@ -71,7 +71,7 @@ async function displayAlbums() {
 
             cardContainer.innerHTML = cardContainer.innerHTML + `<div class="card" data-folder="${folder}">
                         <div class="image">
-                            <img src="/musics/${folder}/cover.jpg" alt="">
+                            <img src="../musics/${folder}/cover.jpg" alt="">
                             <div class="play-logo">
                                 <i class="ri-play-circle-line playListIcon" id="0"></i>
                             </div>
